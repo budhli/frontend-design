@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample — Modern Teal</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal:      #06B6D4;
+  --teal-dark: #0891B2;
+  --teal-deep: #0E7490;
+  --teal-light:#22D3EE;
+  --teal-pale: #CFFAFE;
+  --teal-mist: #F0FDFE;
+  --white:     #FFFFFF;
+  --text:      #0A0F1E;
+  --text2:     #4B5563;
+  --text3:     #9CA3AF;
+  --border:    rgba(6,182,212,.15);
+  --border2:   #E5E7EB;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #FFFFFF;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ─────────────────────────────────────────────── */
+#cur, #ring {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+#cur  { width: 8px; height: 8px; background: var(--teal); transition: width .2s, height .2s, opacity .2s; }
+#ring { width: 32px; height: 32px; border: 1.5px solid rgba(6,182,212,.5); transition: width .3s, height .3s; }
+
+/* ── GRID BG ─────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(6,182,212,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6,182,212,.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle glow top */
+body::after {
+  content: '';
+  position: fixed;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(6,182,212,.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── PAGE ────────────────────────────────────────────────── */
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 56px;
+}
+.logo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.02em;
+}
+.logo span { color: var(--teal); }
+.nav-links { display: flex; gap: 28px; }
+.nav-link { font-size: 13.5px; font-weight: 500; color: var(--text2); cursor: none; transition: color .2s; }
+.nav-link:hover { color: var(--teal); }
+.nav-cta {
+  padding: 8px 18px;
+  background: var(--text);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: none;
+  border: none;
+  transition: all .2s;
+}
+.nav-cta:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero { padding: 20px 0 64px; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: var(--teal-mist);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-deep);
+  margin-bottom: 28px;
+  letter-spacing: .01em;
+}
+.badge-dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex; align-items: center; justify-content: center;
+}
+.badge-dot::after { content: '✦'; font-size: 8px; color: #fff; }
+
+h1 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(3.2rem, 7vw, 5.8rem);
+  font-weight: 800;
+  line-height: .94;
+  letter-spacing: -.04em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+h1 .teal-word {
+  color: var(--teal);
+  position: relative;
+  display: inline-block;
+}
+
+/* Underline sweep on teal word */
+h1 .teal-word::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-light));
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underline-in .7s cubic-bezier(.4,0,.2,1) .5s forwards;
+}
+@keyframes underline-in { to { transform: scaleX(1); } }
+
+.hero-sub {
+  font-size: 16.5px;
+  color: var(--text2);
+  line-height: 1.75;
+  max-width: 480px;
+  margin: 24px 0 36px;
+}
+
+.btn-row { display: flex; gap: 12px; align-items: center; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: none;
+  border: none;
+  transition: all .22s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #0891B2 0%, #06B6D4 50%, #22D3EE 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(6,182,212,.35);
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.btn-primary:hover {
+  background: var(--teal-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(6,182,212,.35);
+}
+.btn-soft {
+  background: var(--teal-mist);
+  color: var(--teal-deep);
+  border: 1px solid var(--border);
+}
+.btn-soft:hover { background: var(--teal-pale); transform: translateY(-2px); }
+
+/* ── CARDS ───────────────────────────────────────────────── */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 56px; }
+
+/* Running border wrapper */
+.card-outer {
+  border-radius: 18px;
+  padding: 1.5px;
+  background: #E5E7EB;
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+}
+.card-outer::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from var(--a, 0deg), transparent 0%, transparent 60%, var(--teal-light) 75%, var(--teal) 85%, transparent 95%);
+  border-radius: 20px;
+  animation: rot 2.5s linear infinite paused;
+  opacity: 0;
+  transition: opacity .4s;
+}
+@property --a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes rot { to { --a: 360deg; } }
+.card-outer:hover::before { opacity: 1; animation-play-state: running; }
+
+.card {
+  background: #FFFFFF;
+  border-radius: 17px;
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .32s cubic-bezier(.34,1.56,.64,1), box-shadow .32s;
+  height: 100%;
+}
+
+/* Shimmer */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 55%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(6,182,212,.07), transparent);
+  pointer-events: none;
+}
+.card-outer:hover .card::after { animation: sh .55s ease forwards; }
+@keyframes sh { to { left: 160%; } }
+
+.card-outer:hover .card {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow:
+    0 24px 48px rgba(6,182,212,.12),
+    0 8px 16px rgba(0,0,0,.06),
+    0 0 0 1px rgba(6,182,212,.08);
+}
+
+/* Top teal line accent */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 24px; right: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-light));
+  border-radius: 0 0 2px 2px;
+  transform: scaleX(0);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+}
+.card-outer:hover .card::before { transform: scaleX(1); }
+
+.card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--teal-mist);
+  border: 1px solid rgba(6,182,212,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: var(--teal-dark);
+  font-weight: 700;
+  transition: transform .3s, background .3s;
+}
+.card-outer:hover .card-icon {
+  background: var(--teal-pale);
+  transform: scale(1.1) rotate(-4deg);
+}
+.card-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -.01em;
+}
+.card-body { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.card-label {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* ── STATS STRIP ─────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 48px;
+}
+.stat {
+  padding: 24px 20px;
+  text-align: center;
+  border-right: 1px solid var(--border2);
+  transition: background .2s;
+  cursor: none;
+}
+.stat:last-child { border-right: none; }
+.stat:hover { background: var(--teal-mist); }
+.stat-num {
+  display: block;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--teal-dark);
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.stat-lbl { font-size: 11.5px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: .07em; }
+
+/* ── STAGGER ANIMATION ───────────────────────────────────── */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+.fade-up.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="ring"></div>
+
+<div class="page">
+  <nav class="fade-up">
+    <div class="logo">for<span>ma</span></div>
+    <div class="nav-links">
+      <span class="nav-link">Components</span>
+      <span class="nav-link">Tokens</span>
+      <span class="nav-link">Docs</span>
+    </div>
+    <button class="nav-cta">Get Started</button>
+  </nav>
+
+  <section class="hero">
+    <div class="badge fade-up"><div class="badge-dot"></div>Design System — v3.0</div>
+    <h1 class="fade-up">Interfaces<br>built for <span class="teal-word">speed.</span></h1>
+    <p class="hero-sub fade-up">Clean white canvas. Sharp teal precision. Every component engineered for modern product teams.</p>
+    <div class="btn-row fade-up">
+      <button class="btn btn-primary">Start Building →</button>
+      <button class="btn btn-soft">View Components</button>
+    </div>
+  </section>
+
+  <div class="cards fade-up">
+    <div class="card-outer">
+      <div class="card">
+        <div class="card-icon">⬡</div>
+        <div class="card-title">Running Border</div>
+        <div class="card-body">Hover to see a teal light orbit the card edge using CSS @property.</div>
+        <span class="card-label">CSS @property</span>
+      </div>
+    </div>
+    <div class="card-outer">
+      <div class="card">
+        <div class="card-icon">↑</div>
+        <div class="card-title">Magnetic Lift</div>
+        <div class="card-body">Cards float with overshoot spring physics, shadow bloom, and a shimmer pass.</div>
+        <span class="card-label">Micro-motion</span>
+      </div>
+    </div>
+    <div class="card-outer">
+      <div class="card">
+        <div class="card-icon">◎</div>
+        <div class="card-title">Glass & Depth</div>
+        <div class="card-body">Backdrop blur, translucent surfaces, layered shadows for real depth perception.</div>
+        <span class="card-label">Glassmorphism</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats fade-up">
+    <div class="stat"><span class="stat-num">48</span><span class="stat-lbl">Components</span></div>
+    <div class="stat"><span class="stat-num">120+</span><span class="stat-lbl">Tokens</span></div>
+    <div class="stat"><span class="stat-num">AA</span><span class="stat-lbl">Accessible</span></div>
+    <div class="stat"><span class="stat-num">0ms</span><span class="stat-lbl">Runtime CSS</span></div>
+  </div>
+</div>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+});
+(function loop() {
+  rx += (mx - rx) * .1; ry += (my - ry) * .1;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('button, .card-outer, .stat, .nav-link').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.width='20px'; cur.style.height='20px'; cur.style.opacity='.35'; ring.style.width='48px'; ring.style.height='48px'; });
+  el.addEventListener('mouseleave', () => { cur.style.width='8px'; cur.style.height='8px'; cur.style.opacity='1'; ring.style.width='32px'; ring.style.height='32px'; });
+});
+
+// Stagger fade in
+const els = document.querySelectorAll('.fade-up');
+els.forEach((el, i) => setTimeout(() => el.classList.add('in'), 80 + i * 100));
+</script>
+</body>
+</html>
