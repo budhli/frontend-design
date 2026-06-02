@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — Teal</title>
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="ring"></div>
+<div id="spotlight"></div>
+<div class="aurora"></div>
+<canvas id="canvas-bg"></canvas>
+
+<div class="app">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">for<span>ma</span></div>
+    <div class="nav-links">
+      <button class="nav-link active">Overview</button>
+      <button class="nav-link">Components</button>
+      <button class="nav-link">Tokens</button>
+      <button class="nav-link">Docs</button>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-sm btn-ghost" id="toast-btn">◆ Toast</button>
+      <button class="btn btn-sm btn-primary" onclick="openModal('m1')">Open Modal</button>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Foundation</div>
+        <a href="#hero"       class="sidebar-item active"><span class="sidebar-dot"></span>Hero</a>
+        <a href="#typography" class="sidebar-item"><span class="sidebar-dot"></span>Typography</a>
+        <a href="#colors"     class="sidebar-item"><span class="sidebar-dot"></span>Colors</a>
+        <a href="#buttons"    class="sidebar-item"><span class="sidebar-dot"></span>Buttons</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Components</div>
+        <a href="#forms"    class="sidebar-item"><span class="sidebar-dot"></span>Forms</a>
+        <a href="#cards"    class="sidebar-item"><span class="sidebar-dot"></span>Cards</a>
+        <a href="#badges"   class="sidebar-item"><span class="sidebar-dot"></span>Badges</a>
+        <a href="#avatars"  class="sidebar-item"><span class="sidebar-dot"></span>Avatars</a>
+        <a href="#progress" class="sidebar-item"><span class="sidebar-dot"></span>Progress</a>
+        <a href="#alerts"   class="sidebar-item"><span class="sidebar-dot"></span>Alerts</a>
+        <a href="#table"    class="sidebar-item"><span class="sidebar-dot"></span>Table</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Patterns</div>
+        <a href="#tabs"     class="sidebar-item"><span class="sidebar-dot"></span>Tabs</a>
+        <a href="#modal"    class="sidebar-item"><span class="sidebar-dot"></span>Modal</a>
+        <a href="#tooltips" class="sidebar-item"><span class="sidebar-dot"></span>Tooltips</a>
+        <a href="#skeleton" class="sidebar-item"><span class="sidebar-dot"></span>Skeleton</a>
+        <a href="#code"     class="sidebar-item"><span class="sidebar-dot"></span>Code</a>
+        <a href="#timeline" class="sidebar-item"><span class="sidebar-dot"></span>Timeline</a>
+        <a href="#pricing"  class="sidebar-item"><span class="sidebar-dot"></span>Pricing</a>
+        <a href="#features" class="sidebar-item"><span class="sidebar-dot"></span>Features</a>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <!-- ══ HERO ══════════════════════════════════════════ -->
+      <section class="hero" id="hero" style="margin-bottom:20px">
+        <div class="hero-orb"></div>
+        <div class="hero-badge fade-up"><div class="hero-badge-dot"></div>Design System — v3.0</div>
+        <h1 class="hero-title fade-up">
+          <span id="typewriter"></span><span class="hl" id="tw-hl" style="display:none"> precision.</span>
+        </h1>
+        <p class="hero-sub fade-up">White canvas. Sharp teal. Every component engineered for modern product teams who care about craft.</p>
+        <div class="row fade-up">
+          <button class="btn btn-primary btn-lg magnetic">Start Building →</button>
+          <button class="btn btn-ghost btn-lg magnetic">View Components</button>
+        </div>
+        <div style="display:flex;gap:32px;margin-top:52px;flex-wrap:wrap" class="fade-up">
+          <div><div class="counter-num" data-target="48" style="font-family:var(--display);font-size:2.2rem;font-weight:800;color:var(--teal-dark);letter-spacing:-.03em;line-height:1">0</div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-top:4px">Components</div></div>
+          <div style="width:1px;background:var(--border2)"></div>
+          <div><div class="counter-num" data-target="120" data-suffix="+" style="font-family:var(--display);font-size:2.2rem;font-weight:800;color:var(--teal-dark);letter-spacing:-.03em;line-height:1">0</div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-top:4px">Tokens</div></div>
+          <div style="width:1px;background:var(--border2)"></div>
+          <div><div class="counter-num" data-target="99" data-suffix="%" style="font-family:var(--display);font-size:2.2rem;font-weight:800;color:var(--teal-dark);letter-spacing:-.03em;line-height:1">0</div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-top:4px">Accessible</div></div>
+        </div>
+      </section>
+
+      <!-- ══ TYPOGRAPHY ════════════════════════════════════ -->
+      <div class="section-card fade-up" id="typography">
+        <div class="section-card-inner">
+          <div class="section-label">Foundation</div>
+          <h2 class="section-title">Typography</h2>
+          <div class="type-table">
+
+            <!-- Display — scramble -->
+            <div class="type-row" data-effect="scramble">
+              <div class="type-meta"><div class="type-name">Display</div><div class="type-spec">Bricolage 56 / 800</div></div>
+              <span class="t-display" data-final="The Quick Brown">The Quick Brown</span>
+            </div>
+
+            <!-- H1 — gradient slide -->
+            <div class="type-row" data-effect="gradient">
+              <div class="type-meta"><div class="type-name">Heading 1</div><div class="type-spec">Bricolage 36 / 800</div></div>
+              <span class="t-h1">Heading Level One</span>
+            </div>
+
+            <!-- H2 — highlight sweep -->
+            <div class="type-row" data-effect="highlight">
+              <div class="type-meta"><div class="type-name">Heading 2</div><div class="type-spec">Bricolage 28 / 700</div></div>
+              <div class="t-h2-wrap"><span class="t-h2">Heading Level Two</span></div>
+            </div>
+
+            <!-- Body — word stagger -->
+            <div class="type-row" data-effect="stagger">
+              <div class="type-meta"><div class="type-name">Body</div><div class="type-spec">Jakarta 15 / 400</div></div>
+              <span class="t-body" style="font-size:15px;color:var(--text);max-width:440px;line-height:1.7">Plus Jakarta Sans optimised for reading at small sizes with generous spacing and fluid weight.</span>
+            </div>
+
+            <!-- Small — blur in -->
+            <div class="type-row" data-effect="blur">
+              <div class="type-meta"><div class="type-name">Small</div><div class="type-spec">Jakarta 13 / 400</div></div>
+              <span class="t-small">Supporting text, captions, and metadata at reduced opacity.</span>
+            </div>
+
+            <!-- Mono — typewriter retype on hover -->
+            <div class="type-row" data-effect="mono">
+              <div class="type-meta"><div class="type-name">Mono</div><div class="type-spec">Monospace 13</div></div>
+              <span class="t-mono" data-text="const token = design.resolve('color.teal');"></span><span class="mono-cursor"></span>
+            </div>
+
+            <!-- Label -->
+            <div class="type-row" data-effect="label">
+              <div class="type-meta"><div class="type-name">Label</div><div class="type-spec">Jakarta 11 / 700</div></div>
+              <span class="t-label">Section Heading Label</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ COLORS ═════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="colors">
+        <div class="section-card-inner">
+          <div class="section-label">Foundation</div>
+          <h2 class="section-title">Color Tokens</h2>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--teal-deep)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">deep<br>#0E7490</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--teal-dark)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">dark<br>#0891B2</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--teal)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">base<br>#06B6D4</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--teal-light)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">light<br>#22D3EE</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--teal-pale);border:1px solid var(--border)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">pale<br>#CFFAFE</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--teal-mist);border:1px solid var(--border)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">mist<br>#F0FDFE</span></div>
+            <div style="width:1px;background:var(--border2);margin:0 6px;align-self:stretch"></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--success)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">success</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--danger)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">danger</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--warn)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">warn</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div class="swatch-block" style="background:var(--info)"></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center">info</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ BUTTONS ════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="buttons">
+        <div class="section-card-inner">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Buttons</h2>
+          <div class="row">
+            <button class="btn btn-primary magnetic">Primary</button>
+            <button class="btn btn-secondary magnetic">Secondary</button>
+            <button class="btn btn-ghost magnetic">Ghost</button>
+            <button class="btn btn-dark magnetic">Dark</button>
+            <button class="btn btn-danger magnetic">Danger</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-sm btn-primary magnetic">Small</button>
+            <button class="btn btn-primary magnetic">Default</button>
+            <button class="btn btn-lg btn-primary magnetic">Large</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary magnetic" disabled>Disabled</button>
+            <button class="btn btn-primary magnetic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>With Icon</button>
+            <button class="btn btn-icon btn-ghost magnetic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+            <div style="display:flex"><input class="input" placeholder="Search…" style="width:200px;border-radius:10px 0 0 10px;border-right:none"><button class="btn btn-primary" style="border-radius:0 10px 10px 0">Go</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ FORMS ══════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="forms">
+        <div class="section-card-inner">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Form Elements</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:640px;margin-bottom:28px">
+            <div class="form-group"><label class="form-label">Full Name</label><div class="input-wrap"><span class="input-icon">✦</span><input class="input" placeholder="Jane Smith" type="text"></div></div>
+            <div class="form-group"><label class="form-label">Email</label><input class="input" placeholder="jane@company.com" type="email"><span class="form-hint">Never shared publicly.</span></div>
+            <div class="form-group"><label class="form-label">Password</label><input class="input input-error" value="short" type="password"><span style="font-size:12px;color:var(--danger);font-weight:500">Minimum 8 characters</span></div>
+            <div class="form-group"><label class="form-label">Role</label><select class="input"><option>Designer</option><option>Engineer</option><option>Product Manager</option></select></div>
+            <div class="form-group" style="grid-column:1/-1"><label class="form-label">Bio</label><textarea class="input" placeholder="Tell us about yourself…"></textarea></div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:36px">
+            <div class="col">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px">Checkboxes</div>
+              <label class="check-row"><input type="checkbox" checked><span class="checkmark"></span>Notifications enabled</label>
+              <label class="check-row"><input type="checkbox"><span class="checkmark"></span>Weekly digest</label>
+              <label class="check-row"><input type="checkbox" disabled><span class="checkmark" style="opacity:.4"></span>Locked</label>
+            </div>
+            <div class="col">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px">Radio</div>
+              <label class="check-row"><input type="radio" name="plan" checked><span class="checkmark radiomark"></span>Monthly</label>
+              <label class="check-row"><input type="radio" name="plan"><span class="checkmark radiomark"></span>Annual</label>
+              <label class="check-row"><input type="radio" name="plan"><span class="checkmark radiomark"></span>Pay as you go</label>
+            </div>
+            <div class="col">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px">Toggles</div>
+              <div class="toggle-row" onclick="this.querySelector('.toggle').classList.toggle('on')"><div class="toggle on"></div><span class="toggle-label">Real-time sync</span></div>
+              <div class="toggle-row" onclick="this.querySelector('.toggle').classList.toggle('on')"><div class="toggle"></div><span class="toggle-label">Autoplay</span></div>
+            </div>
+            <div class="col" style="min-width:220px">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:12px">Range</div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:6px"><span>Volume</span><span id="vv">72%</span></div>
+              <input type="range" min="0" max="100" value="72" oninput="document.getElementById('vv').textContent=this.value+'%'">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin:14px 0 6px"><span>Brightness</span><span id="bv">45%</span></div>
+              <input type="range" min="0" max="100" value="45" oninput="document.getElementById('bv').textContent=this.value+'%'">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CARDS ══════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="cards">
+        <div class="section-card-inner">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Cards</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px">
+            <div class="tilt-wrap">
+              <div class="card-outer">
+                <div class="card">
+                  <div class="card-glow"></div>
+                  <div class="card-specular"></div>
+                  <div class="card-icon">⬡</div>
+                  <div class="card-title">Running Border</div>
+                  <div class="card-body">Hover to watch a bright teal gradient orbit the edge via CSS @property.</div>
+                  <div class="card-footer"><span class="badge badge-teal">CSS Magic</span><button class="btn btn-sm btn-secondary magnetic">View</button></div>
+                </div>
+              </div>
+            </div>
+            <div class="tilt-wrap">
+              <div class="card-plain">
+                <div class="card-icon">↑</div>
+                <div class="card-title">Lift & Glow</div>
+                <div class="card-body">Spring physics lift with teal border reveal and layered shadow bloom on hover.</div>
+                <div class="card-footer"><span class="badge badge-success">● Live</span><button class="btn btn-sm btn-secondary magnetic">View</button></div>
+              </div>
+            </div>
+            <div class="tilt-wrap">
+              <div class="card-glass">
+                <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:12px">Glass</div>
+                <div class="card-title">Glassmorphism</div>
+                <div class="card-body" style="font-size:13px">Frosted backdrop blur with animated inner glow and tinted surface.</div>
+                <div style="margin-top:16px"><button class="btn btn-sm btn-secondary magnetic">Explore</button></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="stat-card"><div class="stat-label">Monthly Revenue</div><div class="stat-value counter-num" data-target="84" data-prefix="$" data-suffix="k">$0k</div><div class="stat-change stat-up">↑ 18.3% this month</div></div>
+              <div class="stat-card"><div class="stat-label">Active Users</div><div class="stat-value counter-num" data-target="12400" data-suffix="">0</div><div class="stat-change stat-down">↓ 2.1% this week</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ BADGES ═════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="badges">
+        <div class="section-card-inner">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Badges & Tags</h2>
+          <div class="row" style="margin-bottom:16px">
+            <span class="badge badge-teal">● Teal</span>
+            <span class="badge badge-success">● Active</span>
+            <span class="badge badge-danger">● Error</span>
+            <span class="badge badge-warn">⚠ Warning</span>
+            <span class="badge badge-info">Beta</span>
+            <span class="badge badge-neutral">Default</span>
+          </div>
+          <div class="row">
+            <span class="tag">Design Systems</span>
+            <span class="tag">Motion</span>
+            <span class="tag">Typography</span>
+            <span class="tag">Accessibility</span>
+            <span class="tag">Color Theory</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ AVATARS ════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="avatars">
+        <div class="section-card-inner">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Avatars</h2>
+          <div class="avatar-group" style="margin-bottom:20px">
+            <div class="avatar" style="background:linear-gradient(135deg,#0891B2,#22D3EE)">J</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#0E7490,#06B6D4)">A</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#059669,#34D399)">M</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#6366F1,#A5B4FC)">S</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#D97706,#FCD34D)">R</div>
+            <div class="avatar avatar-overflow">+6</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="avatar" style="width:52px;height:52px;font-size:18px;background:linear-gradient(135deg,#0891B2,#22D3EE);box-shadow:0 0 0 4px var(--teal-pale)">V</div>
+            <div><div style="font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:-.01em">Varsha Shah</div><div style="font-size:12px;color:var(--text3)">Design Systems Lead · San Francisco</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PROGRESS ═══════════════════════════════════════ -->
+      <div class="section-card fade-up" id="progress">
+        <div class="section-card-inner">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Progress Bars</h2>
+          <div class="progress-wrap" style="max-width:500px">
+            <div><div class="progress-header"><span class="progress-name">Design Tokens</span><span class="progress-pct">96%</span></div><div class="progress-track"><div class="progress-bar pb-teal" data-width="96" style="width:0%"></div></div></div>
+            <div><div class="progress-header"><span class="progress-name">Component Library</span><span class="progress-pct">78%</span></div><div class="progress-track"><div class="progress-bar pb-success" data-width="78" style="width:0%"></div></div></div>
+            <div><div class="progress-header"><span class="progress-name">Documentation</span><span class="progress-pct">61%</span></div><div class="progress-track"><div class="progress-bar pb-info" data-width="61" style="width:0%"></div></div></div>
+            <div><div class="progress-header"><span class="progress-name">Accessibility Audit</span><span class="progress-pct">44%</span></div><div class="progress-track"><div class="progress-bar pb-warn" data-width="44" style="width:0%"></div></div></div>
+            <div><div class="progress-header"><span class="progress-name">Overall</span><span class="progress-pct">70%</span></div><div class="progress-track" style="height:10px;border-radius:5px"><div class="progress-bar pb-teal" data-width="70" style="width:0%;height:10px;border-radius:5px"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ALERTS ═════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="alerts">
+        <div class="section-card-inner">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Alerts</h2>
+          <div class="col" style="max-width:580px">
+            <div class="alert alert-teal"><span class="alert-icon">◆</span><div class="alert-content"><div class="alert-title">Update Available</div>Version 3.1 adds 6 new components and performance improvements.</div><button class="alert-close" onclick="this.closest('.alert').style.opacity='0';setTimeout(()=>this.closest('.alert').remove(),300)">×</button></div>
+            <div class="alert alert-success"><span class="alert-icon">✓</span><div class="alert-content"><div class="alert-title">Published Successfully</div>Tokens live across all connected environments.</div><button class="alert-close" onclick="this.closest('.alert').style.opacity='0';setTimeout(()=>this.closest('.alert').remove(),300)">×</button></div>
+            <div class="alert alert-warn"><span class="alert-icon">⚠</span><div class="alert-content"><div class="alert-title">Deprecation Notice</div><code style="font-family:var(--mono);font-size:12px">color.primary</code> is deprecated. Use <code style="font-family:var(--mono);font-size:12px">color.teal</code>.</div><button class="alert-close" onclick="this.closest('.alert').style.opacity='0';setTimeout(()=>this.closest('.alert').remove(),300)">×</button></div>
+            <div class="alert alert-danger"><span class="alert-icon">✕</span><div class="alert-content"><div class="alert-title">Build Failed</div>3 lint errors. Run <code style="font-family:var(--mono);font-size:12px">npm run lint:fix</code>.</div><button class="alert-close" onclick="this.closest('.alert').style.opacity='0';setTimeout(()=>this.closest('.alert').remove(),300)">×</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TABLE ══════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="table">
+        <div class="section-card-inner">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Data Table</h2>
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="input-wrap" style="flex:1;max-width:240px"><span class="input-icon" style="font-size:13px">⌕</span><input class="input btn-sm" placeholder="Filter…" style="height:34px" oninput="filterTbl(this.value)"></div>
+              <button class="btn btn-sm btn-ghost magnetic">Export</button>
+              <button class="btn btn-sm btn-primary magnetic">+ New</button>
+            </div>
+            <table id="tbl">
+              <thead><tr>
+                <th onclick="sortTbl(0)" class="sorted">Component <span class="sort-icon">↑</span></th>
+                <th onclick="sortTbl(1)">Category <span class="sort-icon">↕</span></th>
+                <th onclick="sortTbl(2)">Status <span class="sort-icon">↕</span></th>
+                <th onclick="sortTbl(3)">Version <span class="sort-icon">↕</span></th>
+                <th onclick="sortTbl(4)">Updated <span class="sort-icon">↕</span></th>
+              </tr></thead>
+              <tbody>
+                <tr><td>Button</td><td class="cell-dim">Input</td><td><span class="badge badge-success">Stable</span></td><td class="cell-mono">v2.1.0</td><td class="cell-dim">2 days ago</td></tr>
+                <tr><td>Card</td><td class="cell-dim">Layout</td><td><span class="badge badge-success">Stable</span></td><td class="cell-mono">v1.8.3</td><td class="cell-dim">5 days ago</td></tr>
+                <tr><td>Modal</td><td class="cell-dim">Overlay</td><td><span class="badge badge-info">Beta</span></td><td class="cell-mono">v0.9.1</td><td class="cell-dim">1 week ago</td></tr>
+                <tr><td>Tooltip</td><td class="cell-dim">Overlay</td><td><span class="badge badge-success">Stable</span></td><td class="cell-mono">v3.0.0</td><td class="cell-dim">3 weeks ago</td></tr>
+                <tr><td>Calendar</td><td class="cell-dim">Input</td><td><span class="badge badge-warn">Alpha</span></td><td class="cell-mono">v0.3.2</td><td class="cell-dim">1 month ago</td></tr>
+                <tr><td>DataGrid</td><td class="cell-dim">Display</td><td><span class="badge badge-info">Beta</span></td><td class="cell-mono">v0.7.0</td><td class="cell-dim">2 weeks ago</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TABS ═══════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="tabs">
+        <div class="section-card-inner">
+          <div class="section-label">Patterns</div>
+          <h2 class="section-title">Tabs</h2>
+          <div class="tab-list">
+            <button class="tab-btn active" onclick="tab(this,'t1')">Overview</button>
+            <button class="tab-btn" onclick="tab(this,'t2')">Code</button>
+            <button class="tab-btn" onclick="tab(this,'t3')">Props</button>
+            <button class="tab-btn" onclick="tab(this,'t4')">Changelog</button>
+          </div>
+          <div id="t1" class="tab-panel active"><p style="font-size:14px;color:var(--text2);line-height:1.8;max-width:500px">Organises content panels behind a navigation strip. One panel visible at a time, keyboard accessible, ARIA compliant.</p><div class="row" style="margin-top:14px"><span class="badge badge-success">WCAG AA</span><span class="badge badge-teal">Keyboard Nav</span><span class="badge badge-neutral">ARIA Roles</span></div></div>
+          <div id="t2" class="tab-panel">
+            <div class="code-block" style="max-width:500px">
+              <div class="code-toolbar"><div class="code-dots"><div class="code-dot" style="background:#FF5F57"></div><div class="code-dot" style="background:#FEBC2E"></div><div class="code-dot" style="background:#28C840"></div></div><span class="code-lang">HTML</span><button class="code-copy" onclick="this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button></div>
+              <div class="code-content"><pre><code><span class="kw">&lt;div</span> <span class="fn">class</span>=<span class="str">"tab-list"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;button</span> <span class="fn">class</span>=<span class="str">"tab-btn active"</span><span class="kw">&gt;</span>Tab 1<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;div</span> <span class="fn">id</span>=<span class="str">"t1"</span> <span class="fn">class</span>=<span class="str">"tab-panel active"</span><span class="kw">&gt;</span>...<span class="kw">&lt;/div&gt;</span></code></pre></div>
+            </div>
+          </div>
+          <div id="t3" class="tab-panel"><table style="font-size:13px;border-collapse:collapse"><thead><tr style="border-bottom:1px solid var(--border2)"><th style="padding:8px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3)">Prop</th><th style="padding:8px 14px;text-align:left;font-size:11px;text-transform:uppercase;color:var(--text3)">Type</th><th style="padding:8px 14px;text-align:left;font-size:11px;text-transform:uppercase;color:var(--text3)">Default</th></tr></thead><tbody><tr style="border-bottom:1px solid var(--border2)"><td style="padding:10px 14px"><code style="font-family:var(--mono)">defaultTab</code></td><td style="padding:10px 14px;color:var(--text3)">string</td><td style="padding:10px 14px;color:var(--text3)">first</td></tr><tr><td style="padding:10px 14px"><code style="font-family:var(--mono)">onChange</code></td><td style="padding:10px 14px;color:var(--text3)">function</td><td style="padding:10px 14px;color:var(--text3)">—</td></tr></tbody></table></div>
+          <div id="t4" class="tab-panel"><div style="font-size:13.5px;color:var(--text2);line-height:2"><div><span class="badge badge-success" style="margin-right:8px">v2.0</span>Keyboard nav + ARIA</div><div><span class="badge badge-teal" style="margin-right:8px">v1.5</span>Vertical orientation</div><div><span class="badge badge-neutral" style="margin-right:8px">v1.0</span>Initial release</div></div></div>
+        </div>
+      </div>
+
+      <!-- ══ MODAL ══════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="modal">
+        <div class="section-card-inner">
+          <div class="section-label">Patterns</div>
+          <h2 class="section-title">Modal</h2>
+          <div class="row">
+            <button class="btn btn-primary magnetic" onclick="openModal('m1')">Open Modal</button>
+            <button class="btn btn-danger magnetic" onclick="openModal('m2')">Confirm Dialog</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TOOLTIPS ═══════════════════════════════════════ -->
+      <div class="section-card fade-up" id="tooltips">
+        <div class="section-card-inner">
+          <div class="section-label">Patterns</div>
+          <h2 class="section-title">Tooltips</h2>
+          <div class="row">
+            <div class="tip-wrap"><button class="btn btn-secondary magnetic">Hover me</button><div class="tip">Helpful context appears here</div></div>
+            <div class="tip-wrap"><button class="btn btn-icon btn-ghost magnetic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button><div class="tip">More information</div></div>
+            <div class="tip-wrap"><span style="border-bottom:1.5px dashed var(--border2);cursor:none;font-size:14px;font-weight:500">Design tokens</span><div class="tip">Named variables storing design decisions</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SKELETON ═══════════════════════════════════════ -->
+      <div class="section-card fade-up" id="skeleton">
+        <div class="section-card-inner">
+          <div class="section-label">Patterns</div>
+          <h2 class="section-title">Skeleton Loader</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;max-width:680px">
+            <div class="sk-card"><div class="sk sk-img"></div><div class="sk sk-title"></div><div class="sk sk-text sk-full"></div><div class="sk sk-text sk-full"></div><div class="sk sk-text sk-70"></div></div>
+            <div class="sk-card"><div style="display:flex;gap:10px;align-items:center;margin-bottom:14px"><div class="sk" style="width:42px;height:42px;border-radius:50%;flex-shrink:0"></div><div style="flex:1"><div class="sk sk-text" style="width:55%;margin-bottom:5px"></div><div class="sk sk-text" style="width:35%;height:11px"></div></div></div><div class="sk sk-text sk-full"></div><div class="sk sk-text sk-full"></div><div class="sk sk-text sk-45"></div><div style="display:flex;gap:8px;margin-top:14px"><div class="sk" style="height:30px;flex:1;border-radius:var(--radius)"></div><div class="sk" style="height:30px;flex:1;border-radius:var(--radius)"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CODE ═══════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="code">
+        <div class="section-card-inner">
+          <div class="section-label">Patterns</div>
+          <h2 class="section-title">Code Block</h2>
+          <div class="code-block">
+            <div class="code-toolbar"><div class="code-dots"><div class="code-dot" style="background:#FF5F57"></div><div class="code-dot" style="background:#FEBC2E"></div><div class="code-dot" style="background:#28C840"></div></div><span class="code-lang">JavaScript</span><button class="code-copy" onclick="this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button></div>
+            <div class="code-content"><pre><code><span class="cm">// Design token resolver</span>
+<span class="kw">const</span> <span class="fn">resolveToken</span> = (<span class="fn">path</span>, theme = <span class="str">'light'</span>) <span class="op">=&gt;</span> {
+  <span class="kw">const</span> tokens = <span class="fn">loadTokens</span>(theme);
+  <span class="kw">return</span> path.<span class="fn">split</span>(<span class="str">'.'</span>).<span class="fn">reduce</span>(
+    (obj, key) <span class="op">=&gt;</span> obj?.[key], tokens
+  );
+};
+
+<span class="kw">const</span> teal   = <span class="fn">resolveToken</span>(<span class="str">'color.teal'</span>);      <span class="cm">// #06B6D4</span>
+<span class="kw">const</span> radius = <span class="fn">resolveToken</span>(<span class="str">'border.radius.lg'</span>);  <span class="cm">// 16px</span></code></pre></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TIMELINE ════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="timeline">
+        <div class="section-card-inner">
+          <div class="section-label">Patterns</div>
+          <h2 class="section-title">Timeline</h2>
+          <div class="timeline" style="max-width:500px">
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">June 2026</div><div class="tl-title">Design System v3.0</div><div class="tl-desc">Full teal rebrand, dark mode, 12 new components.</div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">March 2026</div><div class="tl-title">Accessibility Overhaul</div><div class="tl-desc">WCAG 2.1 AA. Keyboard nav across all components.</div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">November 2025</div><div class="tl-title">Motion System</div><div class="tl-desc">Spring easing and duration scale established.</div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">August 2025</div><div class="tl-title">Initial Release</div><div class="tl-desc">Core library with 24 components.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PRICING ════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="pricing">
+        <div class="section-card-inner">
+          <div class="section-label">Patterns</div>
+          <h2 class="section-title">Pricing</h2>
+          <div class="pricing-grid">
+            <div class="pricing-card"><div class="pricing-name">Starter</div><div class="pricing-price">$0</div><div class="pricing-period">per month</div><ul class="pricing-feats"><li class="pricing-feat">5 projects</li><li class="pricing-feat">Core components</li><li class="pricing-feat">Community support</li><li class="pricing-feat no">Custom tokens</li></ul><button class="btn btn-ghost magnetic" style="width:100%">Get Started</button></div>
+            <div class="pricing-card featured"><div class="pricing-tag">Popular</div><div class="pricing-name">Pro</div><div class="pricing-price">$29</div><div class="pricing-period">per month</div><ul class="pricing-feats"><li class="pricing-feat">Unlimited projects</li><li class="pricing-feat">All components</li><li class="pricing-feat">Priority support</li><li class="pricing-feat">Custom tokens</li></ul><button class="btn magnetic" style="width:100%;background:#fff;color:var(--teal-dark);font-weight:700">Start Free Trial</button></div>
+            <div class="pricing-card"><div class="pricing-name">Enterprise</div><div class="pricing-price">Custom</div><div class="pricing-period">contact us</div><ul class="pricing-feats"><li class="pricing-feat">Everything in Pro</li><li class="pricing-feat">SLA guarantee</li><li class="pricing-feat">Private deployment</li></ul><button class="btn btn-dark magnetic" style="width:100%">Contact Sales</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ FEATURES ════════════════════════════════════════ -->
+      <div class="section-card fade-up" id="features">
+        <div class="section-card-inner">
+          <div class="section-label">Patterns</div>
+          <h2 class="section-title">Feature Grid</h2>
+          <div class="feat-grid">
+            <div class="feat-item"><div class="feat-icon">◈</div><div class="feat-name">Design Tokens</div><div class="feat-desc">Single source of truth for all design decisions.</div></div>
+            <div class="feat-item"><div class="feat-icon">⟳</div><div class="feat-name">Adaptive Themes</div><div class="feat-desc">Light and dark with smooth CSS variable transitions.</div></div>
+            <div class="feat-item"><div class="feat-icon">◎</div><div class="feat-name">Motion System</div><div class="feat-desc">Spring curves and duration scales for every interaction.</div></div>
+            <div class="feat-item"><div class="feat-icon">⌘</div><div class="feat-name">Keyboard Nav</div><div class="feat-desc">Every component fully navigable without a pointer.</div></div>
+            <div class="feat-item"><div class="feat-icon">◐</div><div class="feat-name">WCAG 2.1 AA</div><div class="feat-desc">All color pairs tested. Screen-reader verified.</div></div>
+            <div class="feat-item"><div class="feat-icon">⬡</div><div class="feat-name">Zero Runtime</div><div class="feat-desc">Pure CSS custom properties. No JS for theming.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:80px"></div>
+    </main>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="m1" onclick="if(event.target===this)closeModal('m1')">
+  <div class="modal"><div class="modal-header"><div class="modal-title">Publish Changes</div><button class="btn btn-icon btn-ghost" onclick="closeModal('m1')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div class="modal-body">Publishing token updates to all connected environments. This affects <strong>4 active projects</strong>.</div><div class="modal-footer"><button class="btn btn-ghost magnetic" onclick="closeModal('m1')">Cancel</button><button class="btn btn-primary magnetic" onclick="closeModal('m1');showToast('success','✓','Changes published successfully')">Publish</button></div></div>
+</div>
+<div class="modal-overlay" id="m2" onclick="if(event.target===this)closeModal('m2')">
+  <div class="modal"><div class="modal-header"><div class="modal-title" style="color:var(--danger)">Delete Component</div><button class="btn btn-icon btn-ghost" onclick="closeModal('m2')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div class="modal-body">Are you sure? Deleting <strong>Button</strong> removes it from all libraries permanently.</div><div class="modal-footer"><button class="btn btn-ghost magnetic" onclick="closeModal('m2')">Cancel</button><button class="btn btn-danger magnetic" onclick="closeModal('m2');showToast('danger','✕','Component deleted permanently')">Delete</button></div></div>
+</div>
+
+<div class="toast-container" id="toasts"></div>
+
+<!-- inline swatch style -->
+<style>
+.swatch-block { width: 64px; height: 64px; border-radius: 10px; transition: transform .2s, box-shadow .2s; cursor: none; }
+.swatch-block:hover { transform: scale(1.12) translateY(-4px); box-shadow: 0 14px 32px rgba(6,182,212,.3); }
+</style>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   1. CURSOR
+══════════════════════════════════════════════════════ */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+const spot = document.getElementById('spotlight');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  spot.style.setProperty('--mx', mx + 'px');
+  spot.style.setProperty('--my', my + 'px');
+});
+(function loop() {
+  rx += (mx - rx) * .1; ry += (my - ry) * .1;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('button,a,.card-outer,.card-plain,.card-glass,.stat-card,.feat-item,.pricing-card,.avatar,.tag,.sidebar-item,.swatch-block,.type-row').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+/* ══════════════════════════════════════════════════════
+   2. PARTICLE CANVAS
+══════════════════════════════════════════════════════ */
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H;
+const PARTS = 60, CONN = 120;
+let particles = [];
+
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+
+class P {
+  constructor() { this.reset(true); }
+  reset(rand) {
+    this.x  = rand ? Math.random() * W : (Math.random() < .5 ? 0 : W);
+    this.y  = rand ? Math.random() * H : Math.random() * H;
+    this.vx = (Math.random() - .5) * .45;
+    this.vy = (Math.random() - .5) * .45;
+    this.r  = Math.random() * 1.8 + .8;
+    this.a  = Math.random() * .55 + .2;
+  }
+  tick() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < -10 || this.x > W + 10 || this.y < -10 || this.y > H + 10) this.reset(false);
+    const dx = mx - this.x, dy = my - this.y;
+    const d  = Math.hypot(dx, dy);
+    if (d < 200) { this.vx += dx / d * .018; this.vy += dy / d * .018; }
+    const spd = Math.hypot(this.vx, this.vy);
+    if (spd > 1.6) { this.vx /= spd * .8; this.vy /= spd * .8; }
+  }
+  draw() {
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(6,182,212,${this.a})`; ctx.fill();
+  }
+}
+for (let i = 0; i < PARTS; i++) particles.push(new P());
+
+(function drawLoop() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.tick(); p.draw(); });
+  for (let i = 0; i < PARTS; i++) for (let j = i + 1; j < PARTS; j++) {
+    const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+    const d  = Math.hypot(dx, dy);
+    if (d < CONN) {
+      ctx.beginPath();
+      ctx.moveTo(particles[i].x, particles[i].y);
+      ctx.lineTo(particles[j].x, particles[j].y);
+      ctx.strokeStyle = `rgba(6,182,212,${.18 * (1 - d / CONN)})`;
+      ctx.lineWidth = .9; ctx.stroke();
+    }
+  }
+  requestAnimationFrame(drawLoop);
+})();
+
+/* ══════════════════════════════════════════════════════
+   3. 3D TILT (18deg, specular highlight)
+══════════════════════════════════════════════════════ */
+document.querySelectorAll('.tilt-wrap').forEach(wrap => {
+  const inner = wrap.firstElementChild;
+  wrap.addEventListener('mousemove', e => {
+    const rect = wrap.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width  - .5;
+    const y = (e.clientY - rect.top)  / rect.height - .5;
+    inner.style.transform = `rotateY(${x * 18}deg) rotateX(${-y * 18}deg) scale(1.03)`;
+    inner.style.transition = 'transform .05s';
+    const cx = ((x + .5) * 100) + '%';
+    const cy = ((y + .5) * 100) + '%';
+    inner.querySelectorAll('.card-glow,.card-specular').forEach(el => {
+      el.style.setProperty('--cx', cx); el.style.setProperty('--cy', cy);
+    });
+  });
+  wrap.addEventListener('mouseleave', () => {
+    inner.style.transform = ''; inner.style.transition = 'transform .55s cubic-bezier(.34,1.56,.64,1)';
+  });
+});
+
+/* ══════════════════════════════════════════════════════
+   4. MAGNETIC BUTTONS
+══════════════════════════════════════════════════════ */
+document.querySelectorAll('.magnetic').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width  / 2) * .38;
+    const y = (e.clientY - r.top  - r.height / 2) * .38;
+    btn.style.transform = `translate(${x}px,${y}px)`;
+    btn.style.transition = 'transform .12s';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = ''; btn.style.transition = 'transform .55s cubic-bezier(.34,1.56,.64,1)';
+  });
+});
+
+/* ══════════════════════════════════════════════════════
+   5. CLICK RIPPLE
+══════════════════════════════════════════════════════ */
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    const r = document.createElement('span');
+    r.className = 'ripple';
+    const size = Math.max(btn.offsetWidth, btn.offsetHeight) * 2;
+    const rect = btn.getBoundingClientRect();
+    r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;position:absolute;border-radius:50%;background:rgba(255,255,255,.28);transform:scale(0);animation:ripple-out .55s linear;pointer-events:none;`;
+    btn.appendChild(r); setTimeout(() => r.remove(), 600);
+  });
+});
+
+/* ══════════════════════════════════════════════════════
+   6. TYPEWRITER HERO
+══════════════════════════════════════════════════════ */
+const twEl = document.getElementById('typewriter');
+const twHl = document.getElementById('tw-hl');
+const twText = 'Interfaces built\nfor';
+let twI = 0;
+function typeHero() {
+  if (twI <= twText.length) {
+    twEl.innerHTML = twText.slice(0, twI++).replace(/\n/g, '<br>');
+    setTimeout(typeHero, twI > twText.length ? 0 : 36 + Math.random() * 18);
+  } else {
+    setTimeout(() => { twHl.style.display = 'inline'; twHl.classList.add('revealed'); }, 100);
+  }
+}
+setTimeout(typeHero, 400);
+
+/* ══════════════════════════════════════════════════════
+   7. TYPOGRAPHY ROW EFFECTS
+══════════════════════════════════════════════════════ */
+const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+
+function scrambleText(el, final, duration) {
+  let start = null;
+  const len = final.length;
+  function frame(ts) {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / duration, 1);
+    const resolved = Math.floor(p * len);
+    let out = '';
+    for (let i = 0; i < len; i++) {
+      if (final[i] === ' ') { out += ' '; continue; }
+      if (i < resolved) out += final[i];
+      else out += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+    }
+    el.textContent = out;
+    if (p < 1) requestAnimationFrame(frame); else el.textContent = final;
+  }
+  requestAnimationFrame(frame);
+}
+
+function monoType(el, text) {
+  el.textContent = '';
+  let i = 0;
+  const iv = setInterval(() => {
+    el.textContent += text[i++];
+    if (i >= text.length) clearInterval(iv);
+  }, 40);
+}
+
+function staggerWords(el) {
+  const words = el.textContent.split(' ');
+  el.innerHTML = words.map((w, i) =>
+    `<span class="t-body-word" style="transition-delay:${i * 60}ms">${w}&nbsp;</span>`
+  ).join('');
+  requestAnimationFrame(() => el.querySelectorAll('.t-body-word').forEach(s => s.style.opacity = '0'));
+}
+
+// Init word stagger
+document.querySelectorAll('.type-row[data-effect="stagger"] .t-body').forEach(el => staggerWords(el));
+// Init mono
+document.querySelectorAll('.t-mono').forEach(el => { el.textContent = ''; });
+
+function activateRow(row) {
+  row.classList.add('row-active');
+  const effect = row.dataset.effect;
+  if (effect === 'scramble') {
+    const el = row.querySelector('.t-display');
+    scrambleText(el, el.dataset.final, 900);
+  }
+  if (effect === 'stagger') {
+    row.querySelectorAll('.t-body-word').forEach((s, i) => {
+      setTimeout(() => { s.style.opacity = '1'; s.style.transform = 'none'; }, i * 60);
+    });
+  }
+  if (effect === 'mono') {
+    const el = row.querySelector('.t-mono');
+    monoType(el, el.dataset.text);
+  }
+}
+
+// Scroll trigger (once)
+const typeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { activateRow(e.target); } });
+}, { threshold: .5 });
+document.querySelectorAll('.type-row').forEach(row => typeObs.observe(row));
+
+// Hover replay
+document.querySelectorAll('.type-row').forEach(row => {
+  row.addEventListener('mouseenter', () => {
+    row.classList.remove('row-active');
+    // reset effects
+    const effect = row.dataset.effect;
+    if (effect === 'scramble') { /* let scramble re-trigger */ }
+    if (effect === 'gradient') { const el = row.querySelector('.t-h1'); el.style.animation = 'none'; void el.offsetWidth; }
+    if (effect === 'highlight') { const el = row.querySelector('.t-h2-wrap'); el.style.setProperty('--replay','1'); }
+    if (effect === 'blur') { const el = row.querySelector('.t-small'); el.style.filter = 'blur(6px)'; el.style.opacity = '0'; }
+    if (effect === 'stagger') { row.querySelectorAll('.t-body-word').forEach(s => { s.style.opacity = '0'; s.style.transform = 'translateY(10px)'; }); }
+    if (effect === 'mono') { row.querySelector('.t-mono').textContent = ''; }
+    requestAnimationFrame(() => requestAnimationFrame(() => activateRow(row)));
+  });
+});
+
+/* ══════════════════════════════════════════════════════
+   8. COUNTERS
+══════════════════════════════════════════════════════ */
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = +el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const dur = 1500, start = performance.now();
+    function tick(now) {
+      const t = Math.min((now - start) / dur, 1);
+      const e = 1 - Math.pow(1 - t, 3);
+      el.textContent = prefix + (target >= 1000 ? (Math.round(e * target)).toLocaleString() : Math.round(e * target)) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    cntObs.unobserve(el);
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.counter-num').forEach(el => cntObs.observe(el));
+
+/* ══════════════════════════════════════════════════════
+   9. PROGRESS BARS
+══════════════════════════════════════════════════════ */
+const pbObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.progress-bar[data-width]').forEach((bar, i) => {
+      setTimeout(() => {
+        bar.style.transition = 'width 1.1s cubic-bezier(.4,0,.2,1)';
+        bar.style.width = bar.dataset.width + '%';
+      }, i * 80);
+    });
+    pbObs.unobserve(e.target);
+  });
+}, { threshold: .3 });
+document.querySelectorAll('.progress-wrap').forEach(el => pbObs.observe(el));
+
+/* ══════════════════════════════════════════════════════
+   10. SCROLL REVEAL
+══════════════════════════════════════════════════════ */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 55);
+      revObs.unobserve(e.target);
+    }
+  });
+}, { threshold: .06 });
+document.querySelectorAll('.fade-up').forEach(el => revObs.observe(el));
+
+/* ══════════════════════════════════════════════════════
+   11. SCROLL SPY
+══════════════════════════════════════════════════════ */
+const secIds = ['hero','typography','colors','buttons','forms','cards','badges','avatars','progress','alerts','table','tabs','modal','tooltips','skeleton','code','timeline','pricing','features'];
+window.addEventListener('scroll', () => {
+  let act = secIds[0];
+  secIds.forEach(id => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 130) act = id; });
+  document.querySelectorAll('.sidebar-item').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + act));
+}, { passive: true });
+
+/* ══════════════════════════════════════════════════════
+   12. MODALS / TABS / TOASTS / TABLE
+══════════════════════════════════════════════════════ */
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function tab(btn, pid) {
+  btn.closest('.section-card-inner').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.closest('.section-card-inner').querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active'); document.getElementById(pid).classList.add('active');
+}
+
+let tc = 0;
+function showToast(type, icon, msg) {
+  const id = 'toast-' + tc++;
+  const el = document.createElement('div');
+  el.className = 'toast toast-' + type; el.id = id;
+  el.innerHTML = `<span style="font-size:16px;flex-shrink:0">${icon}</span><span class="toast-msg">${msg}</span><span class="toast-x" style="cursor:none">×</span>`;
+  el.onclick = () => { el.classList.add('out'); setTimeout(() => el.remove(), 300); };
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 300); }, 4000);
+}
+document.getElementById('toast-btn').addEventListener('click', () => showToast('teal', '◆', 'Component published to library'));
+
+let sd = 1, sl = 0;
+function sortTbl(col) {
+  document.querySelectorAll('#tbl th').forEach((th, i) => { th.classList.toggle('sorted', i === col); th.querySelector('.sort-icon').textContent = i === col ? (sd === 1 ? '↑' : '↓') : '↕'; });
+  if (col === sl) sd *= -1; else sd = 1; sl = col;
+  const tb = document.querySelector('#tbl tbody');
+  [...tb.querySelectorAll('tr')].sort((a, b) => a.querySelectorAll('td')[col].textContent.localeCompare(b.querySelectorAll('td')[col].textContent) * sd).forEach(r => tb.appendChild(r));
+}
+function filterTbl(q) { document.querySelectorAll('#tbl tbody tr').forEach(r => r.style.display = r.textContent.toLowerCase().includes(q.toLowerCase()) ? '' : 'none'); }
+</script>
+</body>
+</html>

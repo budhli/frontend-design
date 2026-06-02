@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Effects Showcase</title>
+<link rel="stylesheet" href="design-system.css">
+<style>
+/* ── PAGE ──────────────────────────────────────────────── */
+body { background: #F8FFFE; }
+.page { max-width: 1100px; margin: 0 auto; padding: 48px 32px 80px; position: relative; z-index: 1; }
+
+/* ── PAGE HEADER ───────────────────────────────────────── */
+.page-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 10px; }
+.page-title { font-family: var(--display); font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -.04em; color: var(--text); line-height: .95; margin-bottom: 14px; }
+.page-sub { font-size: 14px; color: var(--text3); max-width: 380px; line-height: 1.65; margin-bottom: 52px; }
+
+/* ── BENTO GRID ────────────────────────────────────────── */
+.bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+
+/* ── EFFECT CARD ───────────────────────────────────────── */
+.ec {
+  border-radius: 20px;
+  background: #fff;
+  border: 1.5px solid var(--border2);
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+  transition: border-color .3s, box-shadow .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ec:hover { border-color: rgba(6,182,212,.4); box-shadow: 0 16px 48px rgba(6,182,212,.12); }
+
+/* Hover label */
+.ec-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 10px 16px 12px;
+  background: linear-gradient(to top, rgba(255,255,255,.98) 60%, transparent);
+  transform: translateY(100%);
+  transition: transform .32s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+}
+.ec:hover .ec-label { transform: translateY(0); }
+.ec-name { font-family: var(--mono); font-size: 10.5px; font-weight: 600; color: var(--teal-dark); letter-spacing: .07em; text-transform: uppercase; margin-bottom: 2px; }
+.ec-desc { font-size: 11.5px; color: var(--text3); line-height: 1.5; }
+
+/* Grid spans */
+.span-4  { grid-column: span 4; }
+.span-3  { grid-column: span 3; }
+.span-6  { grid-column: span 6; }
+.span-8  { grid-column: span 8; }
+.span-12 { grid-column: span 12; }
+.h-200 { min-height: 200px; }
+.h-240 { min-height: 240px; }
+.h-280 { min-height: 280px; }
+.h-160 { min-height: 160px; }
+.h-320 { min-height: 320px; }
+
+/* ── EFFECT: RUNNING BORDER ────────────────────────────── */
+@property --rb { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+.demo-rb-outer {
+  width: 160px; height: 110px;
+  border-radius: 14px; padding: 2px;
+  background: var(--border2); position: relative; overflow: hidden;
+}
+.demo-rb-outer::before {
+  content: ''; position: absolute; inset: -3px;
+  background: conic-gradient(from var(--rb),
+    transparent 50%, rgba(34,211,238,.3) 63%, #22D3EE 73%, rgba(255,255,255,.9) 78%, #06B6D4 84%, transparent 95%);
+  border-radius: 17px;
+  animation: rb-spin 2s linear infinite paused; opacity: 0; transition: opacity .3s;
+}
+@keyframes rb-spin { to { --rb: 360deg; } }
+.ec:hover .demo-rb-outer::before { opacity: 1; animation-play-state: running; }
+.demo-rb-inner { background: #fff; border-radius: 12px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.demo-rb-inner span { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+
+/* ── EFFECT: 3D TILT ───────────────────────────────────── */
+.demo-tilt-wrap { perspective: 600px; width: 150px; height: 105px; }
+.demo-tilt-card {
+  width: 100%; height: 100%; border-radius: 14px;
+  background: linear-gradient(135deg, var(--teal-mist), #fff);
+  border: 1.5px solid rgba(6,182,212,.2);
+  display: flex; align-items: center; justify-content: center;
+  transition: box-shadow .3s;
+  position: relative; overflow: hidden;
+}
+.demo-tilt-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(120px circle at var(--tx,50%) var(--ty,50%), rgba(255,255,255,.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+.demo-tilt-card span { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); }
+
+/* ── EFFECT: MAGNETIC ──────────────────────────────────── */
+.demo-mag {
+  padding: 12px 22px; border-radius: 10px;
+  background: linear-gradient(135deg, #0891B2, #06B6D4 55%, #22D3EE);
+  color: #fff; font-family: var(--display); font-size: 14px; font-weight: 700;
+  transition: box-shadow .2s;
+  will-change: transform; display: inline-block;
+  box-shadow: 0 4px 14px rgba(6,182,212,.4);
+}
+
+/* ── EFFECT: SPOTLIGHT ─────────────────────────────────── */
+.demo-spot-inner {
+  width: 100%; height: 100%;
+  background: #0A0F1E;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.demo-spot-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(220px circle at var(--sx,50%) var(--sy,50%), rgba(6,182,212,.18) 0%, transparent 65%);
+  transition: background .06s;
+}
+.demo-spot-text { font-family: var(--display); font-size: 1.6rem; font-weight: 800; color: rgba(255,255,255,.15); letter-spacing: -.02em; z-index: 1; }
+
+/* ── EFFECT: AURORA ────────────────────────────────────── */
+@property --au { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+.demo-aurora {
+  width: 100%; height: 100%;
+  background: #F0FDFE;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.demo-aurora::before {
+  content: ''; position: absolute; inset: 0;
+  background: conic-gradient(from var(--au) at 30% 60%,
+    transparent, rgba(6,182,212,.1) 20%, rgba(34,211,238,.08) 35%,
+    transparent 50%, rgba(8,145,178,.08) 65%, transparent 80%);
+  animation: au-spin 8s linear infinite;
+}
+@keyframes au-spin { to { --au: 360deg; } }
+.demo-aurora span { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); z-index: 1; position: relative; }
+
+/* ── EFFECT: PARTICLES ─────────────────────────────────── */
+#mini-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ── EFFECT: GLASSMORPHISM ─────────────────────────────── */
+.demo-glass-bg {
+  width: 100%; height: 100%; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(6,182,212,.15), rgba(34,211,238,.08), rgba(8,145,178,.12));
+  display: flex; align-items: center; justify-content: center;
+}
+.demo-glass-bg::before {
+  content: ''; position: absolute;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(6,182,212,.35) 0%, transparent 70%);
+  top: -20px; right: -20px;
+  animation: corner-drift 5s ease-in-out infinite alternate;
+}
+.demo-glass-card {
+  padding: 18px 22px; border-radius: 14px;
+  background: rgba(255,255,255,.3);
+  border: 1px solid rgba(255,255,255,.5);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(6,182,212,.12);
+  z-index: 1;
+}
+.demo-glass-card p { font-family: var(--mono); font-size: 11px; color: var(--teal-deep); }
+
+/* ── EFFECT: LIFT & GLOW ───────────────────────────────── */
+.demo-lift {
+  width: 140px; padding: 18px;
+  background: #fff; border: 1.5px solid var(--border2); border-radius: 14px;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s, border-color .3s;
+  text-align: center;
+}
+.ec:hover .demo-lift {
+  transform: translateY(-14px) scale(1.04);
+  box-shadow: 0 28px 60px rgba(6,182,212,.2), 0 0 0 1px rgba(6,182,212,.15);
+  border-color: var(--teal);
+}
+.demo-lift-icon { font-size: 24px; margin-bottom: 8px; display: block; transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+.ec:hover .demo-lift-icon { transform: scale(1.2) rotate(-8deg); }
+.demo-lift p { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+
+/* ── EFFECT: SHIMMER ───────────────────────────────────── */
+.demo-shimmer {
+  width: 160px; height: 90px;
+  background: linear-gradient(135deg, var(--teal-mist), #fff);
+  border: 1.5px solid rgba(6,182,212,.2); border-radius: 14px;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.demo-shimmer::after {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.7), rgba(6,182,212,.1), transparent);
+  pointer-events: none;
+}
+.ec:hover .demo-shimmer::after { animation: shimmer-demo .7s ease forwards; }
+@keyframes shimmer-demo { to { left: 160%; } }
+.demo-shimmer span { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); }
+
+/* ── EFFECT: SCRAMBLE ──────────────────────────────────── */
+.demo-scramble { font-family: var(--display); font-size: 2rem; font-weight: 800; letter-spacing: -.03em; color: var(--text); cursor: none; min-width: 140px; text-align: center; }
+
+/* ── EFFECT: GRADIENT TEXT ─────────────────────────────── */
+.demo-grad {
+  font-family: var(--display); font-size: 2.2rem; font-weight: 800; letter-spacing: -.04em;
+  background: linear-gradient(90deg, var(--text) 0%, var(--teal-dark) 40%, var(--teal-light) 60%, var(--text) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  background-position: 100% center;
+}
+.ec:hover .demo-grad { animation: grad-demo 1.6s ease forwards; }
+@keyframes grad-demo { to { background-position: 0% center; } }
+
+/* ── EFFECT: HIGHLIGHT SWEEP ───────────────────────────── */
+.demo-hl-wrap { position: relative; display: inline-block; }
+.demo-hl { font-family: var(--display); font-size: 1.6rem; font-weight: 800; color: var(--text); position: relative; z-index: 1; }
+.demo-hl-wrap::after {
+  content: ''; position: absolute; bottom: 3px; left: 0; right: 0; height: 38%;
+  background: var(--teal-pale); border-radius: 3px; z-index: 0;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+}
+.ec:hover .demo-hl-wrap::after { transform: scaleX(1); }
+
+/* ── EFFECT: WORD STAGGER ──────────────────────────────── */
+.demo-stagger { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--text); max-width: 180px; text-align: center; line-height: 1.4; }
+.stagger-word { display: inline-block; opacity: 0; transform: translateY(10px); transition: opacity .3s, transform .3s; }
+
+/* ── EFFECT: BLUR IN ───────────────────────────────────── */
+.demo-blur { font-family: var(--display); font-size: 1.5rem; font-weight: 700; color: var(--text); filter: blur(8px); opacity: 0; transition: filter .7s ease, opacity .7s ease; }
+.ec:hover .demo-blur { filter: blur(0); opacity: 1; }
+
+/* ── EFFECT: TYPEWRITER ────────────────────────────────── */
+.demo-tw { font-family: var(--mono); font-size: 13px; color: var(--teal-dark); min-height: 1.4em; }
+.demo-tw-cursor { display: inline-block; width: 2px; height: 1em; background: var(--teal); vertical-align: middle; margin-left: 1px; animation: blink .7s step-end infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ── EFFECT: COUNTER ───────────────────────────────────── */
+.demo-counter { font-family: var(--display); font-size: 3rem; font-weight: 800; color: var(--teal-dark); letter-spacing: -.04em; line-height: 1; }
+.demo-counter-sub { font-family: var(--mono); font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+
+/* ── EFFECT: RIPPLE ────────────────────────────────────── */
+.demo-ripple-btn {
+  padding: 12px 24px; border-radius: 10px; border: none;
+  background: linear-gradient(135deg, #0891B2, #06B6D4 55%, #22D3EE);
+  color: #fff; font-family: var(--display); font-size: 14px; font-weight: 700;
+  cursor: none; position: relative; overflow: hidden;
+  box-shadow: 0 4px 14px rgba(6,182,212,.35);
+}
+.demo-ripple-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.2), transparent 55%); pointer-events: none; }
+
+/* ── EFFECT: CUSTOM CURSOR ─────────────────────────────── */
+.demo-cursor-bg { width: 100%; height: 100%; background: #F8FFFE; display: flex; align-items: center; justify-content: center; gap: 16px; flex-direction: column; }
+.demo-cursor-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); }
+.demo-cursor-ring { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid rgba(6,182,212,.5); display: flex; align-items: center; justify-content: center; }
+.demo-cursor-ring-inner { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); }
+.demo-cursor-label { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+
+/* ── EFFECT: BADGE PULSE ───────────────────────────────── */
+.demo-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 14px 6px 8px; border: 1px solid var(--border);
+  border-radius: 99px; background: var(--teal-mist);
+  font-size: 12px; font-weight: 600; color: var(--teal-deep);
+}
+.demo-badge-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; }
+.demo-badge-dot::after { content: '✦'; font-size: 8px; color: #fff; animation: spin-slow 4s linear infinite; }
+.ec:hover .demo-badge { animation: badge-pulse 1.5s ease-in-out infinite; }
+
+/* ── EFFECT: SCROLL REVEAL ─────────────────────────────── */
+.demo-reveal-row { display: flex; flex-direction: column; gap: 8px; width: 80%; }
+.demo-reveal-item {
+  height: 12px; border-radius: 6px; background: var(--teal-pale);
+  transform: translateY(16px); opacity: 0; transition: opacity .4s, transform .4s;
+}
+.ec:hover .demo-reveal-item:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+.ec:hover .demo-reveal-item:nth-child(2) { opacity: 1; transform: none; transition-delay: .1s; width: 80%; }
+.ec:hover .demo-reveal-item:nth-child(3) { opacity: 1; transform: none; transition-delay: .2s; width: 60%; }
+.ec:hover .demo-reveal-item:nth-child(4) { opacity: 1; transform: none; transition-delay: .3s; width: 40%; }
+
+/* ── EFFECT: SKELETON WAVE ─────────────────────────────── */
+.demo-sk-wrap { display: flex; flex-direction: column; gap: 8px; width: 75%; }
+.demo-sk { height: 12px; border-radius: 6px; background: linear-gradient(90deg, #E2E8F0 25%, #CBD5E1 50%, #E2E8F0 75%); background-size: 200% 100%; animation: sk-wave 1.6s ease-in-out infinite; }
+.demo-sk.w60 { width: 60%; }
+.demo-sk.w80 { width: 80%; }
+.demo-sk.w40 { width: 40%; }
+
+/* ── EFFECT: TOGGLE GLOW ───────────────────────────────── */
+.demo-toggle-set { display: flex; flex-direction: column; gap: 14px; }
+.demo-toggle-wrap { display: flex; align-items: center; gap: 10px; }
+.demo-toggle { width: 40px; height: 22px; border-radius: 11px; background: var(--border2); border: 1.5px solid #D1D5DB; position: relative; transition: all .25s; flex-shrink: 0; }
+.demo-toggle::after { content: ''; width: 16px; height: 16px; border-radius: 50%; background: #9CA3AF; position: absolute; top: 2px; left: 2px; transition: transform .25s, background .25s; }
+.demo-toggle.on { background: var(--teal); border-color: var(--teal); box-shadow: 0 0 12px rgba(6,182,212,.4); }
+.demo-toggle.on::after { background: #fff; transform: translateX(18px); }
+.demo-toggle-lbl { font-size: 12px; color: var(--text2); font-weight: 500; }
+
+/* ── EFFECT: AVATAR HOVER ──────────────────────────────── */
+.demo-av-group { display: flex; }
+.demo-av { width: 40px; height: 40px; border-radius: 50%; border: 2.5px solid #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; margin-left: -10px; transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, z-index 0s; position: relative; cursor: none; }
+.demo-av:first-child { margin-left: 0; }
+.ec:hover .demo-av:hover { transform: translateY(-8px) scale(1.15); z-index: 10; box-shadow: 0 10px 24px rgba(0,0,0,.15); }
+
+/* ── FADE UP ───────────────────────────────────────────── */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s cubic-bezier(.4,0,.2,1); }
+.fade-up.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="ring"></div>
+<div id="spotlight"></div>
+<div class="aurora"></div>
+<canvas id="canvas-bg"></canvas>
+
+<div class="page">
+
+  <div class="page-eyebrow fade-up">Effects Library</div>
+  <h1 class="page-title fade-up">Every effect,<br>explained.</h1>
+  <p class="page-sub fade-up">Hover any card to see the effect in action and learn what's powering it.</p>
+
+  <div class="bento">
+
+    <!-- RUNNING BORDER — span 4 -->
+    <div class="ec span-4 h-240 fade-up">
+      <div class="demo-rb-outer">
+        <div class="demo-rb-inner"><span>hover the card</span></div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Running Border</div>
+        <div class="ec-desc">CSS @property animates a conic-gradient angle, sweeping a teal light around the edge.</div>
+      </div>
+    </div>
+
+    <!-- 3D TILT — span 4 -->
+    <div class="ec span-4 h-240 fade-up" id="tilt-demo">
+      <div class="demo-tilt-wrap" id="tilt-inner-wrap">
+        <div class="demo-tilt-card" id="tilt-card">
+          <span>tilt me</span>
+        </div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">3D Card Tilt</div>
+        <div class="ec-desc">Mouse position drives rotateX/Y up to 18°. A specular highlight tracks the cursor.</div>
+      </div>
+    </div>
+
+    <!-- MAGNETIC — span 4 -->
+    <div class="ec span-4 h-240 fade-up" id="mag-demo">
+      <div class="demo-mag magnetic-demo">Pull me</div>
+      <div class="ec-label">
+        <div class="ec-name">Magnetic Pull</div>
+        <div class="ec-desc">Button calculates cursor offset and translates toward it. Spring easing on release.</div>
+      </div>
+    </div>
+
+    <!-- SPOTLIGHT — span 6 -->
+    <div class="ec span-6 h-240 fade-up" id="spot-demo">
+      <div class="demo-spot-inner">
+        <div class="demo-spot-glow" id="spot-glow"></div>
+        <div class="demo-spot-text">ILLUMINATE</div>
+      </div>
+      <div class="ec-label" style="background:linear-gradient(to top, rgba(10,15,30,.95) 60%, transparent)">
+        <div class="ec-name" style="color:var(--teal-light)">Cursor Spotlight</div>
+        <div class="ec-desc" style="color:rgba(255,255,255,.5)">Radial gradient follows mouse. CSS custom properties update each mousemove frame.</div>
+      </div>
+    </div>
+
+    <!-- AURORA — span 6 -->
+    <div class="ec span-6 h-240 fade-up">
+      <div class="demo-aurora">
+        <span>rotating aurora</span>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Aurora Sweep</div>
+        <div class="ec-desc">@property animates a conic-gradient angle 360° in a slow loop behind the entire page.</div>
+      </div>
+    </div>
+
+    <!-- PARTICLES — span 4 -->
+    <div class="ec span-4 h-240 fade-up" style="position:relative;overflow:hidden">
+      <canvas id="mini-canvas"></canvas>
+      <div class="ec-label" style="z-index:2">
+        <div class="ec-name">Particle Network</div>
+        <div class="ec-desc">Canvas dots drift toward your cursor. Lines draw between nearby particles.</div>
+      </div>
+    </div>
+
+    <!-- GLASSMORPHISM — span 4 -->
+    <div class="ec span-4 h-240 fade-up" style="padding:0;overflow:hidden">
+      <div class="demo-glass-bg">
+        <div class="demo-glass-card">
+          <p>backdrop-filter: blur</p>
+        </div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Glassmorphism</div>
+        <div class="ec-desc">backdrop-filter blur on a translucent surface. Tinted with a teal gradient behind it.</div>
+      </div>
+    </div>
+
+    <!-- LIFT & GLOW — span 4 -->
+    <div class="ec span-4 h-240 fade-up">
+      <div class="demo-lift">
+        <span class="demo-lift-icon">⬡</span>
+        <p>hover the card</p>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Lift & Shadow Bloom</div>
+        <div class="ec-desc">translateY(-14px) + scale with spring easing. Shadow expands with teal tint.</div>
+      </div>
+    </div>
+
+    <!-- SHIMMER — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <div class="demo-shimmer">
+        <span>shimmer</span>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Shimmer Sweep</div>
+        <div class="ec-desc">A light band slides across on hover via CSS animation.</div>
+      </div>
+    </div>
+
+    <!-- SCRAMBLE — span 3 -->
+    <div class="ec span-3 h-200 fade-up" id="scramble-demo">
+      <div class="demo-scramble" id="scramble-text">Forma</div>
+      <div class="ec-label">
+        <div class="ec-name">Text Scramble</div>
+        <div class="ec-desc">Letters cycle through random chars before resolving to the final string.</div>
+      </div>
+    </div>
+
+    <!-- GRADIENT TEXT — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <div class="demo-grad">Teal</div>
+      <div class="ec-label">
+        <div class="ec-name">Gradient Text Fill</div>
+        <div class="ec-desc">background-clip: text shifts a 200% wide gradient from right to left.</div>
+      </div>
+    </div>
+
+    <!-- HIGHLIGHT SWEEP — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <div class="demo-hl-wrap">
+        <span class="demo-hl">Design</span>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Highlight Sweep</div>
+        <div class="ec-desc">A teal pseudo-element scales from scaleX(0) to 1 under the text.</div>
+      </div>
+    </div>
+
+    <!-- WORD STAGGER — span 4 -->
+    <div class="ec span-4 h-200 fade-up" id="stagger-demo">
+      <div class="demo-stagger" id="stagger-text">Every word enters one at a time</div>
+      <div class="ec-label">
+        <div class="ec-name">Word Stagger</div>
+        <div class="ec-desc">Text splits into spans. Each gets an increasing transition-delay for cascade effect.</div>
+      </div>
+    </div>
+
+    <!-- BLUR IN — span 4 -->
+    <div class="ec span-4 h-200 fade-up">
+      <div class="demo-blur">Clarity</div>
+      <div class="ec-label">
+        <div class="ec-name">Blur-In Reveal</div>
+        <div class="ec-desc">filter: blur(8px) transitions to blur(0) simultaneously with opacity 0→1.</div>
+      </div>
+    </div>
+
+    <!-- TYPEWRITER — span 4 -->
+    <div class="ec span-4 h-200 fade-up" id="tw-demo">
+      <div style="text-align:center">
+        <div class="demo-tw" id="demo-tw-text"></div><span class="demo-tw-cursor"></span>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Typewriter</div>
+        <div class="ec-desc">Characters append one by one with a randomised delay. Retypes on hover.</div>
+      </div>
+    </div>
+
+    <!-- COUNTER — span 3 -->
+    <div class="ec span-3 h-200 fade-up" id="cnt-demo">
+      <div style="text-align:center">
+        <div class="demo-counter" id="demo-cnt">0</div>
+        <div class="demo-counter-sub">components</div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Animated Counter</div>
+        <div class="ec-desc">IntersectionObserver fires a cubic-bezier eased number animation on enter.</div>
+      </div>
+    </div>
+
+    <!-- RIPPLE — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <button class="demo-ripple-btn" id="ripple-btn">Click me</button>
+      <div class="ec-label">
+        <div class="ec-name">Click Ripple</div>
+        <div class="ec-desc">A span is injected at click coords, scaled from 0→4 with opacity fade.</div>
+      </div>
+    </div>
+
+    <!-- SCROLL REVEAL — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <div class="demo-reveal-row">
+        <div class="demo-reveal-item"></div>
+        <div class="demo-reveal-item"></div>
+        <div class="demo-reveal-item" style="background:var(--teal-pale)"></div>
+        <div class="demo-reveal-item" style="background:rgba(6,182,212,.12)"></div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Scroll Reveal</div>
+        <div class="ec-desc">IntersectionObserver adds a class, each child gets a staggered transition-delay.</div>
+      </div>
+    </div>
+
+    <!-- SKELETON WAVE — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <div class="demo-sk-wrap">
+        <div class="demo-sk"></div>
+        <div class="demo-sk w80"></div>
+        <div class="demo-sk w60"></div>
+        <div class="demo-sk w40"></div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Skeleton Wave</div>
+        <div class="ec-desc">A moving gradient (background-position) simulates content loading state.</div>
+      </div>
+    </div>
+
+    <!-- BADGE PULSE — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <div class="demo-badge">
+        <div class="demo-badge-dot"></div>
+        Design System v3
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Badge Pulse</div>
+        <div class="ec-desc">box-shadow expands and contracts in a keyframe loop. Icon rotates continuously.</div>
+      </div>
+    </div>
+
+    <!-- TOGGLE GLOW — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <div class="demo-toggle-set">
+        <div class="demo-toggle-wrap">
+          <div class="demo-toggle on" onclick="this.classList.toggle('on')"></div>
+          <span class="demo-toggle-lbl">Sync enabled</span>
+        </div>
+        <div class="demo-toggle-wrap">
+          <div class="demo-toggle" onclick="this.classList.toggle('on')"></div>
+          <span class="demo-toggle-lbl">Autoplay off</span>
+        </div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Toggle Glow</div>
+        <div class="ec-desc">box-shadow: 0 0 12px teal pulses when active. Thumb slides with CSS transition.</div>
+      </div>
+    </div>
+
+    <!-- AVATAR POP — span 3 -->
+    <div class="ec span-3 h-200 fade-up">
+      <div class="demo-av-group">
+        <div class="demo-av" style="background:linear-gradient(135deg,#0891B2,#22D3EE)">J</div>
+        <div class="demo-av" style="background:linear-gradient(135deg,#059669,#34D399)">M</div>
+        <div class="demo-av" style="background:linear-gradient(135deg,#6366F1,#A5B4FC)">S</div>
+        <div class="demo-av" style="background:linear-gradient(135deg,#D97706,#FCD34D)">R</div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Avatar Pop</div>
+        <div class="ec-desc">translateY(-8px) + scale(1.15) with spring cubic-bezier. Negative margin creates stack overlap.</div>
+      </div>
+    </div>
+
+    <!-- CURSOR DEMO — span 6 -->
+    <div class="ec span-6 h-200 fade-up">
+      <div style="display:flex;align-items:center;gap:28px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(6,182,212,.4)">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--teal)"></div>
+          </div>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">ring</span>
+        </div>
+        <div style="width:1px;height:40px;background:var(--border2)"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--teal)"></div>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">dot</span>
+        </div>
+        <div style="width:1px;height:40px;background:var(--border2)"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;max-width:180px">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--teal-dark);line-height:1.6">dot: instant<br>ring: lerp 10%<br>hover: scale up</div>
+        </div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Custom Cursor</div>
+        <div class="ec-desc">Dot snaps instantly. Ring uses linear interpolation each rAF frame for a trailing lag effect.</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS ANIMATE — span 6 -->
+    <div class="ec span-6 h-200 fade-up" id="pb-demo">
+      <div style="width:80%;display:flex;flex-direction:column;gap:10px">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:5px"><span>Tokens</span><span>96%</span></div>
+          <div class="progress-track"><div class="pb-demo-bar pb-teal" data-w="96" style="width:0%;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--teal-deep),var(--teal-light));transition:none;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:pb-shine 2.5s ease-in-out infinite"></div></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:5px"><span>Library</span><span>78%</span></div>
+          <div class="progress-track"><div class="pb-demo-bar pb-success" data-w="78" style="width:0%;height:6px;border-radius:3px;background:linear-gradient(90deg,#059669,#34D399);transition:none;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:pb-shine 2.5s ease-in-out infinite .4s"></div></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:5px"><span>Docs</span><span>61%</span></div>
+          <div class="progress-track"><div class="pb-demo-bar pb-info" data-w="61" style="width:0%;height:6px;border-radius:3px;background:linear-gradient(90deg,#2563EB,#93C5FD);transition:none;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:pb-shine 2.5s ease-in-out infinite .8s"></div></div></div>
+        </div>
+      </div>
+      <div class="ec-label">
+        <div class="ec-name">Progress Bar Reveal</div>
+        <div class="ec-desc">Width animates from 0 on hover via CSS transition. A shimmer keyframe loops continuously.</div>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+</div>
+
+<script>
+/* CURSOR */
+const cur = document.getElementById('cur'), ring = document.getElementById('ring'), spot = document.getElementById('spotlight');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+  spot.style.setProperty('--mx', mx+'px'); spot.style.setProperty('--my', my+'px');
+});
+(function loop(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+document.querySelectorAll('.ec, button, .demo-av').forEach(el => {
+  el.addEventListener('mouseenter', ()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', ()=>document.body.classList.remove('hovering'));
+});
+
+/* MINI PARTICLE CANVAS */
+const mc = document.getElementById('mini-canvas');
+const mctx = mc.getContext('2d');
+let mw,mh;
+function mresize(){
+  const r = mc.parentElement.getBoundingClientRect();
+  mw = mc.width = r.width; mh = mc.height = r.height;
+}
+mresize(); window.addEventListener('resize', mresize);
+let mparts = Array.from({length:30}, () => ({
+  x: Math.random()*500, y: Math.random()*300,
+  vx:(Math.random()-.5)*.5, vy:(Math.random()-.5)*.5,
+  r: Math.random()*1.5+.5, a: Math.random()*.5+.2
+}));
+let lmx=mw/2,lmy=mh/2;
+mc.parentElement.addEventListener('mousemove', e => {
+  const r=mc.getBoundingClientRect(); lmx=e.clientX-r.left; lmy=e.clientY-r.top;
+});
+(function mloop(){
+  mctx.clearRect(0,0,mw,mh);
+  mparts.forEach(p => {
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>mw) p.vx*=-1; if(p.y<0||p.y>mh) p.vy*=-1;
+    const dx=lmx-p.x,dy=lmy-p.y,d=Math.hypot(dx,dy);
+    if(d<120){p.vx+=dx/d*.025;p.vy+=dy/d*.025;}
+    const spd=Math.hypot(p.vx,p.vy); if(spd>1.8){p.vx/=spd;p.vy/=spd;}
+    mctx.beginPath(); mctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    mctx.fillStyle=`rgba(6,182,212,${p.a})`; mctx.fill();
+  });
+  for(let i=0;i<mparts.length;i++) for(let j=i+1;j<mparts.length;j++){
+    const dx=mparts[i].x-mparts[j].x, dy=mparts[i].y-mparts[j].y, d=Math.hypot(dx,dy);
+    if(d<90){mctx.beginPath();mctx.moveTo(mparts[i].x,mparts[i].y);mctx.lineTo(mparts[j].x,mparts[j].y);mctx.strokeStyle=`rgba(6,182,212,${.2*(1-d/90)})`;mctx.lineWidth=.8;mctx.stroke();}
+  }
+  requestAnimationFrame(mloop);
+})();
+
+/* 3D TILT */
+const tiltWrap = document.getElementById('tilt-demo');
+const tiltCard = document.getElementById('tilt-card');
+tiltWrap.addEventListener('mousemove', e => {
+  const r=tiltWrap.getBoundingClientRect();
+  const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+  tiltCard.style.transform=`rotateY(${x*22}deg) rotateX(${-y*22}deg) scale(1.05)`;
+  tiltCard.style.transition='transform .05s';
+  tiltCard.style.setProperty('--tx',(x+.5)*100+'%');
+  tiltCard.style.setProperty('--ty',(y+.5)*100+'%');
+  tiltCard.style.boxShadow=`${-x*20}px ${y*20}px 40px rgba(6,182,212,.2)`;
+});
+tiltWrap.addEventListener('mouseleave', () => {
+  tiltCard.style.transform=''; tiltCard.style.transition='transform .5s cubic-bezier(.34,1.56,.64,1)'; tiltCard.style.boxShadow='';
+});
+
+/* MAGNETIC */
+const magEl = document.querySelector('.magnetic-demo');
+const magDemo = document.getElementById('mag-demo');
+magDemo.addEventListener('mousemove', e => {
+  const r=magEl.getBoundingClientRect();
+  const x=(e.clientX-r.left-r.width/2)*.5, y=(e.clientY-r.top-r.height/2)*.5;
+  magEl.style.transform=`translate(${x}px,${y}px)`;
+  magEl.style.transition='transform .12s';
+});
+magDemo.addEventListener('mouseleave', () => { magEl.style.transform=''; magEl.style.transition='transform .5s cubic-bezier(.34,1.56,.64,1)'; });
+
+/* SPOTLIGHT DEMO */
+const spotDemo = document.getElementById('spot-demo');
+const spotGlow = document.getElementById('spot-glow');
+spotDemo.addEventListener('mousemove', e => {
+  const r=spotDemo.getBoundingClientRect();
+  spotGlow.style.setProperty('--sx',(e.clientX-r.left)+'px');
+  spotGlow.style.setProperty('--sy',(e.clientY-r.top)+'px');
+});
+
+/* SCRAMBLE */
+const CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+function scramble(el, final, dur){
+  let start=null, len=final.length;
+  function frame(ts){
+    if(!start) start=ts;
+    const p=Math.min((ts-start)/dur,1), res=Math.floor(p*len);
+    let out='';
+    for(let i=0;i<len;i++){
+      if(final[i]===' '){out+=' ';continue;}
+      out += i<res ? final[i] : CHARS[Math.floor(Math.random()*CHARS.length)];
+    }
+    el.textContent=out; if(p<1) requestAnimationFrame(frame); else el.textContent=final;
+  }
+  requestAnimationFrame(frame);
+}
+const scrDemo = document.getElementById('scramble-demo');
+const scrEl   = document.getElementById('scramble-text');
+scrDemo.addEventListener('mouseenter', () => scramble(scrEl, 'Forma', 700));
+
+/* WORD STAGGER */
+function initStagger(el){
+  const words = el.textContent.split(' ');
+  el.innerHTML = words.map((w,i)=>`<span class="stagger-word" style="transition-delay:${i*70}ms">${w}&nbsp;</span>`).join('');
+}
+const stagEl = document.getElementById('stagger-text');
+initStagger(stagEl);
+const stagDemo = document.getElementById('stagger-demo');
+stagDemo.addEventListener('mouseenter', () => {
+  stagEl.querySelectorAll('.stagger-word').forEach(s=>{s.style.opacity='0';s.style.transform='translateY(10px)';});
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    stagEl.querySelectorAll('.stagger-word').forEach(s=>{s.style.opacity='1';s.style.transform='none';});
+  }));
+});
+
+/* TYPEWRITER */
+const twDemo = document.getElementById('tw-demo');
+const twTxt  = document.getElementById('demo-tw-text');
+const TW_STRING = "const teal = '#06B6D4';";
+let twIv = null;
+function startTW(){
+  clearInterval(twIv); twTxt.textContent=''; let i=0;
+  twIv = setInterval(()=>{ twTxt.textContent += TW_STRING[i++]; if(i>=TW_STRING.length) clearInterval(twIv); }, 45);
+}
+startTW();
+twDemo.addEventListener('mouseenter', startTW);
+
+/* COUNTER */
+const cntDemo = document.getElementById('cnt-demo');
+const cntEl   = document.getElementById('demo-cnt');
+let cntDone=false;
+function runCounter(){
+  const dur=1200, start=performance.now();
+  function tick(now){
+    const t=Math.min((now-start)/dur,1), e=1-Math.pow(1-t,3);
+    cntEl.textContent=Math.round(e*48); if(t<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const cntObs = new IntersectionObserver(entries=>{if(entries[0].isIntersecting&&!cntDone){runCounter();cntDone=true;}},{threshold:.5});
+cntObs.observe(cntDemo);
+cntDemo.addEventListener('mouseenter', runCounter);
+
+/* RIPPLE */
+document.getElementById('ripple-btn').addEventListener('click', e => {
+  const btn=e.currentTarget, r=btn.getBoundingClientRect();
+  const size=Math.max(btn.offsetWidth,btn.offsetHeight)*2;
+  const sp=document.createElement('span');
+  sp.style.cssText=`position:absolute;border-radius:50%;background:rgba(255,255,255,.3);width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px;transform:scale(0);animation:ripple-out .55s linear;pointer-events:none`;
+  btn.appendChild(sp); setTimeout(()=>sp.remove(),600);
+});
+
+/* PROGRESS BARS DEMO */
+const pbDemoEl = document.getElementById('pb-demo');
+let pbFired=false;
+function firePBs(){
+  document.querySelectorAll('.pb-demo-bar').forEach((bar,i)=>{
+    setTimeout(()=>{ bar.style.transition='width 1s cubic-bezier(.4,0,.2,1)'; bar.style.width=bar.dataset.w+'%'; }, i*100);
+  });
+}
+pbDemoEl.addEventListener('mouseenter', ()=>{ document.querySelectorAll('.pb-demo-bar').forEach(b=>{ b.style.transition='none'; b.style.width='0%'; }); setTimeout(firePBs,50); });
+const pbObs2 = new IntersectionObserver(e=>{if(e[0].isIntersecting&&!pbFired){firePBs();pbFired=true;}},{threshold:.5});
+pbObs2.observe(pbDemoEl);
+
+/* SCROLL REVEAL */
+const revObs = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*60);revObs.unobserve(e.target);}});
+},{threshold:.07});
+document.querySelectorAll('.fade-up').forEach(el=>revObs.observe(el));
+
+/* PAGE CANVAS BG (global particles) */
+const canvas=document.getElementById('canvas-bg');
+const pctx=canvas.getContext('2d');
+let PW,PH,pp=[];
+function presize(){PW=canvas.width=window.innerWidth;PH=canvas.height=window.innerHeight;}
+presize(); window.addEventListener('resize',presize);
+for(let i=0;i<40;i++) pp.push({x:Math.random()*PW,y:Math.random()*PH,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.5+.6,a:Math.random()*.4+.15});
+(function pl(){
+  pctx.clearRect(0,0,PW,PH);
+  pp.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>PW)p.vx*=-1; if(p.y<0||p.y>PH)p.vy*=-1;
+    pctx.beginPath();pctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    pctx.fillStyle=`rgba(6,182,212,${p.a})`;pctx.fill();
+  });
+  for(let i=0;i<pp.length;i++)for(let j=i+1;j<pp.length;j++){
+    const dx=pp[i].x-pp[j].x,dy=pp[i].y-pp[j].y,d=Math.hypot(dx,dy);
+    if(d<110){pctx.beginPath();pctx.moveTo(pp[i].x,pp[i].y);pctx.lineTo(pp[j].x,pp[j].y);pctx.strokeStyle=`rgba(6,182,212,${.14*(1-d/110)})`;pctx.lineWidth=.7;pctx.stroke();}
+  }
+  requestAnimationFrame(pl);
+})();
+</script>
+</body>
+</html>

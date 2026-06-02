@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frontend Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #0A0F1E; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.wrap { text-align: center; padding: 48px 24px; }
+.eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #0891B2; margin-bottom: 16px; }
+h1 { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -.04em; color: #0A0F1E; line-height: .95; margin-bottom: 16px; }
+h1 span { color: #06B6D4; }
+p { font-size: 15px; color: #4B5563; margin-bottom: 40px; }
+.links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 24px; border-radius: 12px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  transition: all .22s cubic-bezier(.4,0,.2,1);
+}
+.link-primary { background: linear-gradient(135deg, #0891B2, #06B6D4 55%, #22D3EE); color: #fff; box-shadow: 0 4px 14px rgba(6,182,212,.35); }
+.link-primary:hover { box-shadow: 0 10px 28px rgba(6,182,212,.45); transform: translateY(-2px); }
+.link-ghost { border: 1.5px solid #E5E7EB; color: #4B5563; }
+.link-ghost:hover { border-color: #06B6D4; color: #0E7490; background: #F0FDFE; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Frontend Design System</div>
+  <h1>Built with <span>Claude Code</span></h1>
+  <p>Teal on white. 24 effects. Zero build step.</p>
+  <div class="links">
+    <a href="/demo" class="link link-primary">Component Library →</a>
+    <a href="/demo2" class="link link-ghost">Effects Showcase</a>
+  </div>
+</div>
+</body>
+</html>
